@@ -13,26 +13,28 @@ The proposed method improves inverse distance weighting (IDW) interpolation for 
 
 ```text
 dual_constraint_idw_code/
-├─ README.md
-├─ LICENSE
-├─ requirements.txt
-├─ environment.yml
-├─ data/
-│  ├─ example_rainfall_stations.csv
-│  └─ README.md
-├─ src/
-│  ├─ __init__.py
-│  └─ dual_constraint_idw.py
-├─ scripts/
-│  ├─ run_all.py
-│  ├─ reproduce_table2.py
-│  ├─ reproduce_fig5_sensitivity.py
-│  ├─ reproduce_fig6_maps.py
-│  └─ reproduce_fig7_profile.py
-├─ outputs/
-│  └─ README.md
-└─ docs/
-   └─ method_notes.md
+|-- README.md
+|-- LICENSE
+|-- requirements.txt
+|-- environment.yml
+|-- data/
+|   |-- example_rainfall_stations.csv
+|   `-- README.md
+|-- src/
+|   |-- __init__.py
+|   `-- dual_constraint_idw.py
+|-- scripts/
+|   |-- run_all.py
+|   |-- reproduce_table2.py
+|   |-- reproduce_fig5_sensitivity.py
+|   |-- reproduce_fig6_maps.py
+|   `-- reproduce_fig7_profile.py
+|-- outputs/
+|   `-- README.md
+`-- docs/
+    |-- method_notes.md
+    |-- tutorial.md
+    `-- user_guide.md
 ```
 
 ## Environment
@@ -51,6 +53,12 @@ Alternatively, create a conda environment:
 conda env create -f environment.yml
 conda activate dual-constraint-idw
 ```
+
+## Computational Requirements
+
+The default examples are lightweight and are intended to run on a standard laptop or desktop CPU. No GPU is required. The repository has been tested with Python 3.10 on Windows. The default workflow uses a small anonymized station dataset and usually completes within seconds, with memory use well below 1 GB.
+
+Optional Ordinary Kriging and thin-plate spline baselines depend on external numerical solvers and may show small platform-dependent numerical differences. They are disabled in the default one-command workflow for robustness.
 
 ## Reproduce the Main Results
 
@@ -71,13 +79,26 @@ python scripts/reproduce_fig7_profile.py
 
 The generated files will be written to `outputs/`.
 
-By default, `run_all.py` focuses on the stable and fully reproducible IDW-related results. Optional Ordinary Kriging and thin-plate spline baselines can be enabled in the relevant scripts with command-line flags, but they depend on external numerical solvers and may behave differently across platforms.
+The default one-command workflow reproduces:
 
-## Input Data
+- LOOCV metrics for Standard IDW, Improved IDW, Local-radius IDW, and AIDW;
+- the R-alpha sensitivity analysis corresponding to the parameter-coupling figure;
+- spatial interpolation maps for IDW variants;
+- a one-dimensional profile comparison between Standard IDW and Improved IDW.
 
-The example dataset `data/example_rainfall_stations.csv` is a processed and anonymized station dataset. Station names and original identifiers are removed; coordinates are converted to relative kilometer coordinates to demonstrate the algorithm and reproduce the workflow.
+For detailed usage, inputs, outputs, and command-line options, see:
 
-The original meteorological observations were obtained from the National Meteorological Information Center of China and may be subject to the data provider's access policy.
+- `docs/user_guide.md`
+- `docs/tutorial.md`
+- `docs/method_notes.md`
+
+## Input Data and Data-Sharing Limitations
+
+The example dataset `data/example_rainfall_stations.csv` is a processed and anonymized station dataset. Station names and original identifiers are removed, and coordinates are converted to relative kilometer coordinates. This dataset is provided to demonstrate the algorithm, test the scripts, and reproduce the computational workflow and main IDW-related results reported by the repository.
+
+The original meteorological observations used in the manuscript were obtained from the National Meteorological Information Center of China and may be subject to the data provider's access policy. For this reason, the raw station identifiers, station names, and original provider-formatted records are not redistributed in this public repository. The repository instead provides an anonymized example dataset, complete implementation code, and reproducible scripts so that reviewers and readers can evaluate the method behaviour, parameter sensitivity, and expected outputs.
+
+Users can replace the example CSV with their own station data by following the input format described in `docs/user_guide.md`.
 
 ## Main Parameters
 
@@ -88,15 +109,6 @@ The default manuscript parameters are:
 - weight reduction coefficient: `alpha = 0.6`;
 - IDW power exponent: `p = 2`;
 - nearest neighbors for interpolation: `12`.
-
-## Reproduced Outputs
-
-The default one-command workflow reproduces:
-
-- LOOCV metrics for Standard IDW, Improved IDW, Local-radius IDW, and AIDW;
-- the R-alpha sensitivity analysis corresponding to the parameter-coupling figure;
-- spatial interpolation maps for IDW variants;
-- a one-dimensional profile comparison between Standard IDW and Improved IDW.
 
 ## License
 
