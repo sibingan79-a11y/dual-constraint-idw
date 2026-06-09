@@ -1,10 +1,10 @@
-# Dual-Constraint IDW for Mitigating the Bull's-Eye Effect
+# Dual-Constraint IDW for Controlling Localized Extreme-Value Diffusion
 
 This repository contains the reproducibility code for the manuscript:
 
-**A Dual-Constraint Method Based on Local Influence Distance and Weight Dominance for Mitigating the Bull's-Eye Effect in IDW Interpolation**
+**A Dual-Constraint IDW Interpolation Framework for Controlling Localized Extreme-Value Diffusion in Sparse Spatial Data**
 
-The proposed method improves inverse distance weighting (IDW) interpolation for strongly non-stationary spatial fields containing isolated or semi-isolated extreme observations. It first identifies anomalous extreme-value stations and then applies two asymmetric constraints:
+The proposed method improves inverse distance weighting (IDW) interpolation for sparse spatial datasets containing localized high-value observations spatial fields containing isolated or semi-isolated extreme observations. It first identifies anomalous extreme-value stations and then applies two asymmetric constraints:
 
 - **Far-field truncation:** anomalous-station weights are set to zero when `d >= R`.
 - **Near-field attenuation:** anomalous-station weights are multiplied by `alpha` when `d < R`.
